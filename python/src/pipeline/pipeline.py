@@ -1061,7 +1061,10 @@ The Pipeline API
       for name, module in module_dict.items():
         if name == '__main__':
           continue
-        found = getattr(module, cls.__name__, None)
+        try:
+          found = getattr(module, cls.__name__, None)
+        except ImportError:
+          pass
         if found is cls:
           class_path = '%s.%s' % (name, cls.__name__)
           break
